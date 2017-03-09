@@ -27,6 +27,11 @@
       "$stateParams",
       InstaShowControllerFunction
     ])
+    .controller("InstaEditController", [
+      "InstaFactory",
+      "$stateParams",
+      InstaEditControllerFunction
+    ])
 
     function RouterFunction($stateProvider){
       $stateProvider
@@ -48,10 +53,18 @@
         controller: "InstaShowController",
         controllerAs: "vm"
       })
+      .state("instaEdit", {
+        url: "/wdinstagrams/:id/edit",
+        templateUrl: "js/ng-views/edit.html",
+        controller: "InstaEditController",
+        controllerAs: "vm"
+      })
     }
 
     function InstaFactoryFunction($resource){
-      return $resource("http://localhost:3000/entries/:id")
+      return $resource("http://localhost:3000/entries/:id", {}, {
+        update: {method: "PUT"}
+      })
     }
 
     function InstaIndexControllerFunction(InstaFactory){
@@ -67,7 +80,13 @@
 
     function InstaShowControllerFunction(InstaFactory, $stateParams){
       this.insta = InstaFactory.get({id: $stateParams.id})
-      console.log(this.insta)
+    }
+
+    function InstaEditControllerFunction(InstaFactory, $stateParams){
+      this.insta = InstaFactory.get({id: $stateParams.id})
+      this.update = function(){
+        this.insta.$update({id: $stateParams.id})
+      }
     }
 
 })();
