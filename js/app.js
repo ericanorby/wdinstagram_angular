@@ -87,6 +87,9 @@
       this.update = function(){
         this.insta.$update({id: $stateParams.id})
       }
+      this.destroy = function(){
+        this.insta.$delete({id: $stateParams.id})
+      }
     }
 
 })();
