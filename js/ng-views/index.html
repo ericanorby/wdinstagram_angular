@@ -1,4 +1,6 @@
 <div ng-repeat="insta in vm.instas">
   <p>{{insta.author}}</p>
-  <img ng-src="{{insta.photo_url}}" />
+  <a ui-sref="instaShow({id: insta.id})"><div class="insta" style="background-image: url('{{insta.photo_url}}');">
+  </div></a>
+  <p>{{insta.body}}</p>
 </div>
